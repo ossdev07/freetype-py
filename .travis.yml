@@ -43,6 +43,14 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.6
         - BUILD_SDIST=1
+    - os: linux  # No bundling.
+      arch: arm64
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - MB_ML_VER=2014
+        - PLAT = aarch64
+        - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
+        - BUILD_SDIST=1
     - os: osx
       language: generic
       env:
@@ -69,16 +77,3 @@ after_success:
   - if [ -n "$TRAVIS_TAG" ]; then mkdir -p dist; cp wheelhouse/*.whl dist; fi
   - if [ -n "$TRAVIS_TAG" ] && [ -n "$BUILD_SDIST" ]; then python setup.py sdist; fi
 
-deploy:
-  # Deploy to PyPI on tags. Since the hard work of building wheels is already 
-  # done, we need to defeat some of Travis' automation.
-  provider: pypi
-  on:
-    repo: rougier/freetype-py  # Prevent triggering from forks.
-    tags: true
-    all_branches: true
-  user: NicolasRougier
-  password:
-    secure: DcRKZzasCgo6eCZ5CN/tVngfCcQY7+S8MKpKIGOx4FgfrNd3P3WIxXWqHeIdDpJZKO8wqW9OIrbEvzozMvj6Y/ckcxUsAaPj3zBn80XB9oGjGLHlFCVp39rTQ3BJAOq+0UwaRQAasTErf/0Q1k1LSOttmIGW41u5zNDohwaGxgc=
-  skip_cleanup: true  # Prevent deletion of dist/*.
-  distributions: check  # Dummy argument so dists aren't rebuilt by dpl.
