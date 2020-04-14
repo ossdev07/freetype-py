@@ -7,7 +7,7 @@ function pre_build {
     if [ -z "$IS_OSX" ]; then
       if [ `uname -m` = "aarch64" ]; then
          yum update -y && yum install -y epel-release && yum clean all;
-         yum install -y jsoncpp cmake3;
+         yum install -y jsoncpp cmake3 openssl-devel;
          ln -sf /usr/bin/cmake3 /usr/bin/cmake;
          pip install scikit-build;
          pip install cmake;
