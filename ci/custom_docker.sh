@@ -14,7 +14,7 @@ function build_multilinux {
     local plat=$1
     [ -z "$plat" ] && echo "plat not defined" && exit 1
     local build_cmds="$2"
-    if[$plat == "aarch64"]; then
+    if [ $plat == "aarch64" ]; then
       local docker_image=${DOCKER_IMAGE:-quay.io/pypa/manylinux2014_\$plat}
     else
       local docker_image=${DOCKER_IMAGE:-quay.io/pypa/manylinux1_\$plat}
