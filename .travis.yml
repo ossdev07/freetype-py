@@ -50,7 +50,7 @@ matrix:
         - MB_ML_VER=2014
         - PLAT=aarch64
         - DOCKER_TEST_IMAGE=multibuild/xenial_{PLAT}
-        - FREETYPEPY_BUNDLE_FT=1
+        - BUILD_SDIST=1
     - os: osx
       language: generic
       env:
